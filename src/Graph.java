@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Graph {
     private  LinkedList<Integer> adj[];
@@ -62,6 +63,28 @@ public class Graph {
         System.out.println( "\n"+DFSUsingRecursionUtil(source ,destination , visited));
     }
 
+    public boolean DFSUsingStack(int source , int destination){
+        boolean visited [] = new boolean[adj.length];
+        Stack<Integer> stack = new Stack<>();
+        stack.push(source);
+
+        while (!stack.isEmpty()){
+            int current = stack.pop();
+
+            for (int neighbor : adj[current]){
+                if (neighbor == destination) {
+                    return true;
+                }
+                if(!visited[neighbor])
+                {
+                    visited[neighbor] = true;
+                    stack.push(neighbor);
+                }
+            }
+        }
+        return false;
+    }
+
     public static void main(String arg[]){
         Graph graph = new Graph(6);
         graph.addEdge(1,2);
@@ -69,6 +92,7 @@ public class Graph {
         graph.addEdge(2,3);
         graph.addEdge(4,5);
         graph.BFS(4 , 5 );
-        graph.DFSUsingRecursion(1 , 3);
+        graph.DFSUsingRecursion(1 , 5);
+        System.out.println(graph.DFSUsingStack(1,5));
     }
 }
