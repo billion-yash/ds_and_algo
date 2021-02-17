@@ -35,7 +35,6 @@ public class Graph {
                 }
             }
         }
-
         int cur = destination;
         while (parent[cur] != -1){
             System.out.print(cur + " -> ");
@@ -44,14 +43,32 @@ public class Graph {
         System.out.print(cur);
     }
 
+    private boolean DFSUsingRecursionUtil(int source , int destination , boolean visited[]){
+        if(destination == source) return true;
+
+        for (int neighbor : adj[source]){
+            if (!visited[neighbor]){
+                visited[neighbor] = true;
+                if (DFSUsingRecursionUtil(neighbor, destination, visited)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void DFSUsingRecursion(int source , int destination){
+        boolean visited[] = new boolean[adj.length];
+        System.out.println( "\n"+DFSUsingRecursionUtil(source ,destination , visited));
+    }
+
     public static void main(String arg[]){
         Graph graph = new Graph(6);
         graph.addEdge(1,2);
         graph.addEdge(1 ,3);
-        graph.addEdge(2,4);
         graph.addEdge(2,3);
         graph.addEdge(4,5);
-
-        graph.BFS(1 , 5 );
+        graph.BFS(4 , 5 );
+        graph.DFSUsingRecursion(1 , 3);
     }
 }
