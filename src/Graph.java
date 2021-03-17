@@ -45,7 +45,8 @@ public class Graph {
     }
 
     private boolean DFSUsingRecursionUtil(int source , int destination , boolean visited[]){
-        if(destination == source) return true;
+        if(destination == source)
+            return true;
 
         for (int neighbor : adj[source]){
             if (!visited[neighbor]){
